@@ -10,7 +10,7 @@ public class Consumer {
     private TreeMap<Integer, LinkedList<Long>> zaehlerBaum = new TreeMap<>();
 
     public void consume(int i){
-        int result = crossTotal(i);
+        int result = quersumme(i);
 
         long zeitStempel = System.currentTimeMillis();
         if(zaehlerBaum.get(result) == null){
@@ -22,7 +22,7 @@ public class Consumer {
         }
     }
 
-    private int crossTotal(int i){
+    private int quersumme(int i){
         int result = 0;
 
         while(0 != i){
@@ -32,12 +32,12 @@ public class Consumer {
         return result;
     }
 
-    public int numberOfDifferentResults() {
+    public int anzahlUnterschiedlicheErgebnisse() {
         return this.zaehlerBaum.keySet().size();
     }
 
 
-    public int numberOfOccurrences(int i) {
+    public int anzahlVorkommnisse(int i) {
         if (this.zaehlerBaum.containsKey(i)) {
             return this.zaehlerBaum.get(i).size();
         }
@@ -45,17 +45,17 @@ public class Consumer {
     }
 
 
-    public Set<Integer> getCrossTotalsAscending() {
+    public Set<Integer> getQuersummeAufsteigend() {
         return this.zaehlerBaum.keySet();
     }
 
 
-    public Set<Integer> getCrossTotalsDescending() {
+    public Set<Integer> getQuersummeAbsteigend() {
         return this.zaehlerBaum.descendingKeySet();
     }
 
 
-    public Deque<Long> getTimestampsForResult(int i) {
+    public Deque<Long> getZeitStempel(int i) {
         return this.zaehlerBaum.get(i);
     }
 }
