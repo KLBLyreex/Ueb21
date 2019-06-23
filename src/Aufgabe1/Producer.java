@@ -16,7 +16,7 @@ public class Producer {
      * Gibt eine Zufaellige Zahl zurueck (Zwischen 0 und 1000)
      * @return zufaellige Zahl
      */
-    public int zufallsZahl(){
+    public int produce(){
         return rnd.nextInt(1001);
     }
 }
