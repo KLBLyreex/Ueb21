@@ -11,7 +11,7 @@ import java.util.function.Predicate;
  * @version 03.06.2019
  */
 public class LagerTest {
-    private Lager store = new Lager(21, "HTW Saar");
+    private Lager store = new Lager("HTW Saar");
     private Predicate[] filterAllKriterien = {filterCD, filterBestandZwei, filterPreis};
 
     public static void main(String[] args) {

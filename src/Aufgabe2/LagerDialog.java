@@ -113,8 +113,6 @@ public class LagerDialog {
                 break;
             case AUSGABE: System.out.println(lager.doAusgabe());
                 break;
-            case ERWEITERN: doLagerErweitern();
-                break;
             case ENDE: System.out.print("ENDE!");
                 break;
             default: System.out.println("Funktion steht nicht zur Wahl!");
@@ -134,7 +132,7 @@ public class LagerDialog {
             System.out.print("Lagerort angeben: ");
             lagerort = input.nextLine();
             System.out.print("Groeße des Lagers eingeben: ");
-            lager = new Lager(input.nextInt(), lagerort);
+            lager = new Lager(lagerort);
         } else {
             System.out.println("Es existiert bereits ein Lager! Moechten Sie das vorhandene Lager ersetzen? " +
                     "Ja = 1; Nein = 0");
@@ -144,7 +142,7 @@ public class LagerDialog {
                 System.out.print("Lagerort angeben: ");
                 lagerort = input.nextLine();
                 System.out.print("Groeße des Lagers eingeben: ");
-                lager = new Lager(input.nextInt(), lagerort);
+                lager = new Lager(lagerort);
             }
         }
     }
@@ -304,15 +302,5 @@ public class LagerDialog {
         System.out.print("Prozentsatz: ");
         prozent = input.nextDouble();
         lager.preisKorrektur(prozent);
-    }
-
-    /**
-     * Methode doLagerErweitern fragt vom Nutzer die neue Groesse ab und uebergibt diese an die Methode lagerErweitern
-     * des Lagers
-     */
-    private void doLagerErweitern(){
-        System.out.print("Neue Groesse eingeben: ");
-        lager.lagerErweitern(input.nextInt());
-
     }
 }

@@ -31,6 +31,7 @@ public class Lager {
      * @param lagerort
      */
     public Lager(String lagerort) {
+        lager = new HashMap<Integer, Artikel>();
         this.lagerort = lagerort;
         zeiger = 0;
     }
@@ -132,11 +133,14 @@ public class Lager {
      * @return Sortiertes Lager
      */
     public void getSorted(BiPredicate<Artikel, Artikel> suchKriterium) {
-        Map<Integer, Artikel> lagerKopie = lager;
+        List<Artikel> lagerList = new ArrayList<>(lager.values());
 
-        sort(suchKriterium, lagerKopie);
+        sort(suchKriterium, lagerList);
 
-        lager = lagerKopie;
+        lager.clear();
+        for (int i=0; i<lagerList.size(); i++){
+            lager.put(lagerList.get(i).getNummer(), lagerList.get(i));
+        }
     }
 
     /**
@@ -144,11 +148,11 @@ public class Lager {
      * @param suchKriterium Kriterium
      * @param tmp Array, sortiertes Lager
      */
-    private void sort(BiPredicate<Artikel, Artikel> suchKriterium, Map<Integer, Artikel> tmp) {
-        for (Map.Entry<Integer, Artikel> i : tmp.entrySet()) {
-            for (Map.Entry<Integer, Artikel> j : tmp.entrySet()) {
-                if (suchKriterium.test(i.getValue(), j.getValue())) {
-                    swap(i.getValue().getNummer(), j.getValue().getNummer(), tmp);
+    private void sort(BiPredicate<Artikel, Artikel> suchKriterium, List<Artikel> tmp) {
+        for (int i = zeiger-1; i > 0; i--) {
+            for (int j = 0; j < zeiger; j++) {
+                if (suchKriterium.test(tmp.get(i), tmp.get(j))) {
+                    swap(i, j, tmp);
                 }
             }
         }
@@ -162,10 +166,10 @@ public class Lager {
      * @param j     Position des neuen Artikels
      * @param lager Das aktuelle Lager
      */
-    private void swap(int i, int j, Map<Integer, Artikel> lager) {
+    private void swap(int i, int j, List<Artikel> lager) {
         Artikel tmp = lager.get(i);
-        lager[i] = lager[j];
-        lager[j] = tmp;
+        lager.add(i, lager.get(j));
+        lager.add(j, tmp);
     }
 
     /**
@@ -215,14 +219,12 @@ public class Lager {
      * @param c Sortierkriterium
      * @return
      */
-    public Map getArticles(Predicate<Artikel> f, BiPredicate<Artikel, Artikel> c) {
+    public List<Artikel> getArticles(Predicate<Artikel> f, BiPredicate<Artikel, Artikel> c) {
         List<Artikel> filtered = filter(f);
 
-        Map result = (Map) filtered;
+        sort(c, filtered);
 
-        sort(c, result);
-
-        return result;
+        return filtered;
     }
 
     /**
