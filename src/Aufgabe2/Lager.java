@@ -1,7 +1,6 @@
 package Aufgabe2;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -31,7 +30,7 @@ public class Lager {
      * @param lagerort
      */
     public Lager(String lagerort) {
-        lager = new HashMap<Integer, Artikel>();
+        lager = new HashMap<>();
         this.lagerort = lagerort;
         zeiger = 0;
     }
